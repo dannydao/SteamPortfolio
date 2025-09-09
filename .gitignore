@@ -1,0 +1,17 @@
+# Secrets
+.env
+
+# Python/Django
+__pycache__/
+*.pyc
+db.sqlite3
+
+# Static build output
+staticfiles/
+
+# Virtual env
+.venv/
+
+# OS cruft
+.DS_Store
+Thumbs.db
