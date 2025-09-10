@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load portfolio_extras %}
+{% block content %}
+    <p><a href="{% url 'me' %}">Back</a></p>
+    <img src="{{ header }}" alt="" class="hero">
+    <h2>{{ ug.game.name }}</h2>
+    <p>
+        Total: {{ ug.playtime_forever|minutes_to_hour }}
+        {% if ug.playtime_2weeks %} | Last 2w: {{ ug.playtime_2weeks|minutes_to_hour}}{% endif %}
+        {% if ug.rtime_last_played %} | Last played: {{ ug.rtime_last_played|epoch_to_date }}{% endif %}
+    </p>
+{% endblock %}

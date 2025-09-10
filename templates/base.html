@@ -1,0 +1,13 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Steam Porfolio</title>
+        <link rel="stylesheet" href="{% static 'portfolio/css/site.css' %}">
+        <script src="{% static 'portfolio/js/app.js' %}" defer></script>
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>

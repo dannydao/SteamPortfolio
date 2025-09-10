@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load portfolio_extras %}
+{% block content %}
+    <header class="header">
+        <img src="{{ profile.avatar }}" alt="" width="64" height="64" class="avatar">
+        <div>
+            <h2 class="tight">{{ profile.persona|default:request.user.username }}</h2>
+            <small> Level {{ profile.level }} | Last sync: {{ profile.last_synced|date:"Y-m-d H:i:" }}</small>
+        </div>
+        <div class="spacer">
+            <a href="{% url 'force_sync' %}"> Sync Now</a> |
+            <a href="{% url 'logout' %}">Log Out</a>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <label>Sort:
+            <select data-sort>
+                <option value="minutes">Most Played</option>
+                <option value=>"Name (A-Z)"</option>
+            </select>
+        </label>
+        <label>Search:
+            <input data-search type="search" placeholder="Find a game...">
+        </label>
+    </div>
+
+    <section class="grid" data-grid>
+        {% for g in games %}
+            <a class="card"
+                data-card
+                data-name="{{ g.game__name }}"
+                data-minutes="{{ g.playtime_forever|default:0 }}"
+                href="{% url 'game_detail' g.game__appid %}">
+                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps{{ g.game__appid}}/header.jpg"
+                     alt="{{ g.game__name}}" class="cover">
+                <h3>{{ g.game__name }}</h3>
+                <p>
+                    Total: {{ g.playtime_forever|minutes_to_hour }}
+                    {% if g.playtime_2weeks %} | Last 2w: {{ g.playtime_2weeks|minutes_to_hour}}{% endif %}
+                    {% if g.rtime_last_played %} | Last played: {{ g.rtime_last_played|epoch_to_date}}{% endif %}
+                </p>
+            </a>
+        {% empty %}
+            <p>No games yet - click "Sync Now".</p>
+        {% endfor %}
+    </section>
+{% endblock %}
