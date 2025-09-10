@@ -7,7 +7,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # load .env in development. In production you will set real env vars in the host UI.
-load_dotenv
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,8 +19,12 @@ CSRF_TRUSTED_ORIGINS = [o for o in os.getenv("CSRF_TRUSTED_ORIGINS", "").split("
 
 # --- Apps ---
 INSTALLED_APPS = [
-    "django.contrib.admin","django.contrib.auth","django.contrib.contenttypes",
-    "django.contrib.sessions","django.contrib.messages","django.contrib.staticfiles",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
     "social_django",    # Steam OpenID sign-in
     "portfolio",
 ]
@@ -33,7 +37,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessagesMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
 ]
 
 ROOT_URLCONF = "steamfolio.urls"
@@ -60,7 +64,7 @@ DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DI
 
 # --- Auth: enable Steam OpenID ---
 AUTHENTICATION_BACKENDS = [
-    "social_core.backends.steam.SteamOpenID",
+    "social_core.backends.steam.SteamOpenId",
     "django.contrib.auth.backends.ModelBackend",
 ]
 
@@ -86,7 +90,7 @@ SOCIAL_AUTH_PIPELINE = (
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"] if (BASE_DIR / "static").exists() else []
-STATICFILES_STORAGE = "whitenoice.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # --- Extra security for production only ---
 if not DEBUG:

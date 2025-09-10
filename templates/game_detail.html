@@ -5,8 +5,8 @@
     <img src="{{ header }}" alt="" class="hero">
     <h2>{{ ug.game.name }}</h2>
     <p>
-        Total: {{ ug.playtime_forever|minutes_to_hour }}
-        {% if ug.playtime_2weeks %} | Last 2w: {{ ug.playtime_2weeks|minutes_to_hour}}{% endif %}
+        Total: {{ ug.playtime_forever|minutes_to_hours }}
+        {% if ug.playtime_2weeks %} | Last 2w: {{ ug.playtime_2weeks|minutes_to_hours }}{% endif %}
         {% if ug.rtime_last_played %} | Last played: {{ ug.rtime_last_played|epoch_to_date }}{% endif %}
     </p>
 {% endblock %}

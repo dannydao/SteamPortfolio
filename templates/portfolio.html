@@ -32,12 +32,11 @@
                 data-name="{{ g.game__name }}"
                 data-minutes="{{ g.playtime_forever|default:0 }}"
                 href="{% url 'game_detail' g.game__appid %}">
-                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps{{ g.game__appid}}/header.jpg"
-                     alt="{{ g.game__name}}" class="cover">
+                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/{{ g.game__appid}}/header.jpg" alt="{{ g.game__name}}" class="cover">
                 <h3>{{ g.game__name }}</h3>
                 <p>
-                    Total: {{ g.playtime_forever|minutes_to_hour }}
-                    {% if g.playtime_2weeks %} | Last 2w: {{ g.playtime_2weeks|minutes_to_hour}}{% endif %}
+                    Total: {{ g.playtime_forever|minutes_to_hours }}
+                    {% if g.playtime_2weeks %} | Last 2w: {{ g.playtime_2weeks|minutes_to_hours}}{% endif %}
                     {% if g.rtime_last_played %} | Last played: {{ g.rtime_last_played|epoch_to_date}}{% endif %}
                 </p>
             </a>

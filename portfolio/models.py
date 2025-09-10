@@ -37,4 +37,14 @@ class Achievement(models.Model):
     icongray = models.URLField(blank=True)
 
     class Meta:
+        unique_together = ("appid", "apiname")
+
+class UserAchievement(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    appid = models.IntegerField()
+    apiname = models.CharField(max_length=200)
+    achieved = models.BooleanField(default=False)
+    unlocktime = models.IntegerField(default=0)
+
+    class Meta:
         unique_together = ("profile", "appid", "apiname")
