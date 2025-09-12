@@ -1,12 +1,66 @@
 {% extends "base.html" %}
 {% load portfolio_extras %}
 {% block content %}
-    <p><a href="{% url 'me' %}">Back</a></p>
-    <img src="{{ header }}" alt="" class="hero">
-    <h2>{{ ug.game.name }}</h2>
-    <p>
-        Total: {{ ug.playtime_forever|minutes_to_hours }}
-        {% if ug.playtime_2weeks %} | Last 2w: {{ ug.playtime_2weeks|minutes_to_hours }}{% endif %}
-        {% if ug.rtime_last_played %} | Last played: {{ ug.rtime_last_played|epoch_to_date }}{% endif %}
-    </p>
+
+<div class="detail-container">
+    <div class="card">
+        <img src="{{ header }}" alt="" class="hero">
+        <h2>{{ ug.game.name }}</h2>
+        <p>
+            <span class="chip">Total: {{ ug.playtime_forever|minutes_to_hours }}</span>
+            {% if ug.playtime_2weeks %}
+            <span class="chip">Last 2w: {{ ug.playtime_2weeks|minutes_to_hours }}</span>
+            {% endif %}
+            {% if ug.rtime_last_played %}
+            <span class="chip">Last played: {{ ug.rtime_last_played|epoch_to_date }}</span>
+            {% endif %}
+        </p>
+        
+        <hr>
+
+        <!-- Live Player Count -->
+         <p>
+            <strong> Current Players:</strong>
+            {% if player_count is not None %} {{ player_count|default:"-"}} {% else %} - {% endif %}
+         </p>
+
+         <!-- Genres -->
+        {% if genres %}
+            <p><strong>Genres:</strong>
+                {% for g in genres %}
+                    <span class="chip">{{ g }}</span>
+                {% endfor %}
+            </p>
+        {% endif %}
+        
+        <!-- Description -->
+        {% if description %}
+            <p>{{ description }}</p>
+        {% endif %}
+
+        <!-- Open Store Page -->
+         <p>
+            <a class="button" href="{{ store_url }}" target="blank">Open Store Page</a>
+         </p>
+
+        <!-- Friends who own game -->
+        {% if friends_who_own %}
+            <hr>
+            <h3>Friends who own this</h3>
+            <ul class="friend_list">
+                {% for f in friends_who_own %}
+                    <li>
+                        <a href="{{ f.profileurl }}" target="_blank">
+                            {% if f.avatar %}<img class="friend-avatar" src="{{ f.avatar }}">{% endif %}
+                            {{ f.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <p><a href="{% url 'me' %}">Back</a></p>
+    </div>
+</div>
+
 {% endblock %}

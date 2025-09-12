@@ -5,7 +5,7 @@
         <img src="{{ profile.avatar }}" alt="" width="64" height="64" class="avatar">
         <div>
             <h2 class="tight">{{ profile.persona|default:request.user.username }}</h2>
-            <small> Level {{ profile.level }} | Last sync: {{ profile.last_synced|date:"Y-m-d H:i:" }}</small>
+            <small> Level {{ profile.level }} | Last sync: {{ profile.last_synced|date:"Y-m-d H:i" }}</small>
         </div>
         <div class="spacer">
             <a href="{% url 'force_sync' %}"> Sync Now</a> |
