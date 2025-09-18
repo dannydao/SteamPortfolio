@@ -16,7 +16,7 @@
 
         // ---------- Portfolio page widgets ----------
         const grid = $("[data-grid]");
-        const cards = grid ? $("[data-card]") ? $$("[data-grid]", grid) : [] : [];
+        const cards = grid ? $$("[data-card]", grid) : [];
         const sortSelect = $("[data-sort]");
         const searchInput = $("[data-search]");
 
